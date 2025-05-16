@@ -1,0 +1,76 @@
+/* General Reset */
+* {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Header styling */
+  .header {
+    background-color: #2F3185;
+    padding: 16px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Container to align items */
+  .container {
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 0 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Logo circle */
+  .logo-circle {
+    width: 70px;
+    height: 70px;
+    background-color: #4ade80; /* green-400 */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: black;
+    font-size: 14px;
+  }
+  
+  /* Navigation styling */
+  .nav {
+    display: flex;
+    gap: 24px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  
+  .nav a {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s ease;
+  }
+  
+  .nav a:hover {
+    color: #FFC60C; /* blue-800 */
+  }
+  
+  .nav .search i {
+    margin-left: 6px;
+  }
+  
+  /* Responsive behavior */
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+  
+    .nav {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+  }
+  
