@@ -8,6 +8,8 @@
 @push('others-links')
     <!-- head link -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/header.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
 @endpush
 
 @section('content')
@@ -56,7 +58,7 @@
                             <div class="pre-image">
                                 <img src="https://picsum.photos/200/300" alt="">
                             </div>
-                            <a href="" class="pre-title">Nasi Liwet Bu Sadinem AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</a>
+                            <a href="" class="pre-title">Nasi Liwet Bu Sadinem</a>
                         </div>
                         <div class="preview-2">
                             <div class="pre-image">
@@ -97,7 +99,7 @@
                             <div class="pre-image">
                                 <img src="https://picsum.photos/200/300" alt="">
                             </div>
-                            <a href="" class="pre-title">Keraton Surakarta Hadiningrat AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</a>
+                            <a href="" class="pre-title">Keraton Surakarta Hadiningrat</a>
                         </div>
                         <div class="preview-2">
                             <div class="pre-image">
@@ -131,7 +133,7 @@
             <h2 class="heading title-search">Cari UMKM & Wisata Favoritmu</h2>
             <p class="subtitle subtitle-preview">Gunakan fitur pencarian untuk menemukan data UMKM dan destinasi wisata yang kamu butuhkan dengan mudah.</p>
         </div>
-        <form class="input-container w-75" action="#" method="GET">
+        <form id="search-section" class="input-container w-75" action="#" method="GET">
             <select name="kategori" id="kategori">
                 <option value="umkm">UMKM</option>
                 <option value="wisata">Wisata</option>
@@ -159,26 +161,9 @@
             </div>
         </div>
     </section>
-
-
-    <section class="contact">
-        <p class="subtitle k-text">
-            Informasi Lebih Lanjut? Hubungi Kami via 
-        </p>
-        <div class="list-contact">
-            <p class="k-item">Email: <a target="_blank" href="https://mail.google.com/mail/?view=cm&to=info@example.com">info@example.com</a></p>
-            <p class="k-item">Whatsapp: <a href="https://wa.me/62xxxxxxxxx">+62xxxxxxxxx</a></p>
-        </div>
-    </section>
-
-
-    <button onclick="topFunction()" id="myBtn" title="Go to top">
-        <i class="fa-regular fa-square-caret-up"></i>
-    </button>
 @endsection
 
 @push('scripts')
     <!-- JavaScript -->
     <script src="{{ asset('js/home.js') }}"></script>
-    <script src="{{ asset('js/top.js') }}"></script>
 @endpush

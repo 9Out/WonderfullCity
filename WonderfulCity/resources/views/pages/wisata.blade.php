@@ -8,6 +8,8 @@
 @push('others-links')
     <!-- head link -->
     <link rel="stylesheet" href="{{ asset('css/style2.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/header.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
 @endpush
 
 @section('content')
@@ -41,7 +43,7 @@
     
     <section class="content search">
         <span class="divider"></span>
-        <form class="input-container w-50-right" action="#" method="GET">
+        <form id="search-section" class="input-container w-50-right" action="#" method="GET">
             <input type="text" name="search" id="search" placeholder="Cari Destinasi Wisata">
             <button type="submit" class="btn-search">
                 Cari <i class="fa-solid fa-magnifying-glass"></i>

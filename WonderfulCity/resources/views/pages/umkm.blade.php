@@ -8,6 +8,8 @@
 @push('others-links')
     <!-- head link -->
     <link rel="stylesheet" href="{{ asset('css/style2.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/header.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
 @endpush
 
 @section('content')
@@ -41,7 +43,7 @@
     
     <section class="content search">
         <span class="divider"></span>
-        <form class="input-container w-50-right" action="#" method="GET">
+        <form id="search-section" class="input-container w-50-right" action="#" method="GET">
             <input type="text" name="search" id="search" placeholder="Cari UMKM">
             <button type="submit" class="btn-search">
                 Cari <i class="fa-solid fa-magnifying-glass"></i>
@@ -89,20 +91,6 @@
             </div>
         </div>
     </section>
-
-    <section class="contact">
-        <p class="subtitle k-text">
-            Informasi Lebih Lanjut? Hubungi Kami via 
-        </p>
-        <div class="list-contact">
-            <p class="k-item">Email: <a target="_blank" href="https://mail.google.com/mail/?view=cm&to=info@example.com">info@example.com</a></p>
-            <p class="k-item">Whatsapp: <a href="https://wa.me/62xxxxxxxxx">+62xxxxxxxxx</a></p>
-        </div>
-    </section>
-
-    <button onclick="topFunction()" id="myBtn" title="Go to top">
-        <i class="fa-regular fa-square-caret-up"></i>
-    </button>
 @endsection
 
 @push('scripts')
