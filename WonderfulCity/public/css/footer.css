@@ -1,0 +1,131 @@
+    /* Footer top bar */
+    footer {
+        width: 100%;
+    }
+    .footer-top {
+        background-color: #FFC60C;
+        color: black;
+        text-align: center;
+        padding: 10px;
+        font-weight: 500;
+    }
+    
+    /* Main footer */
+    .footer-main {
+        background-color: #2d3d8b;
+        color: white;
+        padding: 20px 0;
+    }
+    
+    /* Container for footer content */
+    .footer-container {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        width: 80%;
+        margin: 0 auto;
+        padding: 0 20px;
+        gap: 40px;
+    }
+    
+    /* Column styles */
+    .footer-column {
+        align-self: stretch;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .footer-column h3 {
+        margin-bottom: 15px;
+        font-size: 1.25rem;
+        color: #FFC60C;
+    }
+
+    .footer-column iframe {
+        width: 100%;
+        aspect-ratio: 500 / 300;
+        border: 0;
+        border-radius: 8px;
+    }
+
+    .footer-column iframe:hover {
+        box-shadow: 0px 0px 12px #000f47;
+    }
+    
+    .footer-column ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .footer-column li {
+        font-weight: bold;
+    }
+    
+    .footer-column a {
+        font-size: 0.938rem;
+        color: white;
+        text-decoration: underline;
+        text-shadow: 1px 2px 4px #2b2a2a;
+    }
+    
+    .footer-column a:hover {
+        color: #929fd2;
+        text-decoration: none;
+    }
+    
+    /* Horizontal line */
+    .footer-line {
+        border: 0;
+        height: 2px;
+        background-color: #FFC60C;
+        margin: 20px auto;
+        width: 100%;
+    }
+    
+    /* Copyright text */
+    .footer-bottom {
+        text-align: center;
+        font-size: 1rem;
+        color: white;
+    }
+    
+    /* Responsif */
+    @media (max-width: 1024px) {
+        .footer-main {
+            padding: 15px 0;
+        }
+        .footer-container {
+            width: 100%;
+            padding: 0 15px;
+        }
+        .footer-column a {
+            font-size: 0.875rem;
+        }
+        .footer-line {
+            margin: 15px auto;
+        }
+        .footer-bottom {
+            font-size: 0.875rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .footer-column iframe {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .footer-container {
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+    }
