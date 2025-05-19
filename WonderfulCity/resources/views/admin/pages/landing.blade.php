@@ -55,8 +55,9 @@
         </div>
 
         <div class="info">
-            <p class="label">Google Maps:</p>
-            <a href="{{ $data->map_link }}" target="_blank">Lihat Lokasi</a>
+            <p class="label">Embed Google Maps:</p>
+            <p><small>Jika tidak diunggah semua, gambar lama tetap dipakai.</small></p>
+            <p>{{ $data->map_link }}</p>
         </div>
 
         <div class="info">
