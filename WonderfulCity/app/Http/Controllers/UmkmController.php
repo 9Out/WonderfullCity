@@ -62,7 +62,7 @@ class UmkmController extends Controller
     
         // Update foto utama jika diunggah
         if ($request->hasFile('foto_utama')) {
-            Storage::disk('public')->delete($umkm->foto_utama);
+            // Storage::disk('public')->delete($umkm->foto_utama);
             $umkm->foto_utama = $request->file('foto_utama')->store('umkm', 'public');
         }
     
