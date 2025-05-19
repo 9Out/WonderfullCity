@@ -91,20 +91,6 @@
             </div>
         </div>
     </section>
-
-    <section class="contact">
-        <p class="subtitle k-text">
-            Informasi Lebih Lanjut? Hubungi Kami via 
-        </p>
-        <div class="list-contact">
-            <p class="k-item">Email: <a target="_blank" href="https://mail.google.com/mail/?view=cm&to=info@example.com">info@example.com</a></p>
-            <p class="k-item">Whatsapp: <a href="https://wa.me/62xxxxxxxxx">+62xxxxxxxxx</a></p>
-        </div>
-    </section>
-
-    <button onclick="topFunction()" id="myBtn" title="Go to top">
-        <i class="fa-regular fa-square-caret-up"></i>
-    </button>
 @endsection
 
 @push('scripts')

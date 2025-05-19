@@ -10,6 +10,15 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/header.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
+    <style>
+        .head-preview .cover-1 {
+            background: url('{{ asset('storage/' . $data->visual_umkm) }}') lightgray -44.418px 0px / 133.272% 100% no-repeat;
+        }
+
+        .head-preview .cover-2 {
+            background: url('{{ asset('storage/' . $data->visual_wisata) }}') lightgray -44.418px 0px / 133.272% 100% no-repeat;
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -19,9 +28,9 @@
         <span class="divider"></span>
         <div class="carousel">
             <div class="image">
-                <button class="nav left" onclick="prevImage()">&#10094;</button>
-                <img id="carousel-image" src="MainImages/1.png" alt="">
-                <button class="nav right" onclick="nextImage()">&#10095;</button>
+                <button class="nav left" onclick="prevImage()"><i class="fa-solid fa-angle-left"></i></button>
+                <img id="carousel-image" src="" alt="">
+                <button class="nav right" onclick="nextImage()"><i class="fa-solid fa-angle-right"></i></button>
             </div>
         </div>
         <span class="divider"></span>
@@ -45,9 +54,11 @@
                         <p class="desc-info">
                             Dukung produk lokal dan temukan ragam usaha kreatif dari pelaku UMKM.
                         </p>
-                        <button onclick="location.href='#'" class="button button-secondary button-sm">
-                            Lihat Daftar UMKM <i class="fa-solid fa-arrow-right"></i>
-                        </button>
+                        <a href="{{ route('umkm.index') }}">
+                            <button class="button button-secondary button-sm">
+                                Lihat Daftar UMKM <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </a>
                     </div>
                 </div>
                 <!-- Konten Dinamis -->
@@ -89,7 +100,11 @@
                         <span class="desc-info">
                             Nikmati keindahan alam, budaya, dan tempat seru yang wajib kamu kunjungi.
                         </span>
-                        <button onclick="location.href='#'" class="button button-secondary button-sm">Lihat Tempat Wisata <i class="fa-solid fa-arrow-right"></i></button>
+                        <a href="{{ route('wisata.index') }}">
+                            <button class="button button-secondary button-sm">
+                                Lihat Tempat Wisata <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </a>
                     </div>
                 </div>
                 <div class="list-preview">
@@ -154,7 +169,7 @@
                 <span class="dot"></span>
             </div>
             <p class="subtitle about-desc">
-                "Sala" adalah satu dari tiga dusun yang dipilih oleh Sri Susuhunan Paku Buwana II atas saran dari Tumenggung Hanggawangsa, Tumenggung Mangkuyudha, serta komandan pasukan Belanda, J.A.B. van Hohendorff, ketika akan mendirikan istana baru, setelah perang suksesi Mataram Islam terjadi di Kartasura.[12] Seiring waktu, karena penyebutan "Sala" dianggap sulit oleh orang Belanda, nama ini berubah menjadi "Solo".[13] Nama "Surakarta" diberikan sebagai nama "wisuda" bagi Keraton Surakarta, pusat pemerintahan baru Kasultanan Mataram Islam di Desa Sala.[12]
+                {{ $data->website_detail }}
             </p>
             <div class="dot-group">
                 <span class="dot"></span>
@@ -165,5 +180,9 @@
 
 @push('scripts')
     <!-- JavaScript -->
+    <script>
+        window.carouselImages = @json(array_filter($data->carousel_images));
+        window.storageBase = '{{ asset('storage') }}';
+    </script>
     <script src="{{ asset('js/home.js') }}"></script>
 @endpush

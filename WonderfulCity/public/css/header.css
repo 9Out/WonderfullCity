@@ -52,6 +52,13 @@
         color: white;
         transition: color 0.3s ease;
     }
+
+    .header .nav a.active {
+        text-decoration: none;
+        color: #FFC60C;
+        font-weight: bold;
+        cursor: default;
+    }
     
     .header .nav a:hover {
         color: #FFC60C;
