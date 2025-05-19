@@ -35,7 +35,8 @@ class WisataController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // $Wisata = Wisata::findOrFail($id);
+        return view('pages.content', compact('Wisata'));
     }
 
     /**
