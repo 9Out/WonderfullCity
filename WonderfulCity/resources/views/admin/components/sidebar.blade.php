@@ -1,0 +1,36 @@
+<aside class="sidebar" id="sidebar">
+    <ul>
+        <li class="side-item" title="Dashboard">
+            <a href="{{ route('dashboard.index') }}">
+                <span class="side-icon"><i class="fa fa-dashboard"></i>Dashboard</span>
+            </a>
+        </li>
+        <li class="side-item" title="Data UMKM">
+            {{-- <a href="{{ route('umkm.admin') }}"> --}}
+            <a href="">
+                <span class="side-icon"><i class="fa fa-table"></i>Data UMKM</span>
+            </a>
+        </li>
+        <li class="side-item" title="Data Wisata">
+            {{-- <a href="{{ route('wisata.admin') }}"> --}}
+            <a href="">
+                <span class="side-icon"><i class="fa fa-table"></i>Data Wisata</span>
+            </a>
+        </li>
+        <li class="side-item" title="Informasi Landing">
+            {{-- <a href="{{ route('landing.admin') }}"> --}}
+            <a href="{{ route('landing.show') }}">
+                <span class="side-icon"><i class="fa fa-table"></i>Informasi Landing</span>
+            </a>
+        </li>
+        <li class="side-item" title="Logout">
+            {{-- <form id="logout-form" action="{{ route('logout') }}" method="post"> --}}
+            <form id="logout-form" action="" method="post">
+                @csrf
+                <a class="logout" href="" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <span class="side-icon"><i class="fa fa-right-from-bracket"></i>Logout</span>
+                </a>
+            </form>
+        </li>
+    </ul>
+</aside>

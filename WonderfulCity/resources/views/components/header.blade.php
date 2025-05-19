@@ -7,11 +7,26 @@
 
         <!-- Navigation -->
         <nav class="nav">
-            <a href="#">BERANDA</a>
-            <a href="#">UMKM</a>
-            <a href="#">WISATA</a>
+            @if (Route::is('landing.index'))
+                <a class="active" onclick="return false;">BERANDA</a>
+            @else
+                <a href="{{ route('landing.index') }}">BERANDA</a>
+            @endif
+
+            @if (Route::is('umkm.index'))
+                <a class="active" onclick="return false;">UMKM</a>
+            @else
+                <a href="{{ route('umkm.index') }}">UMKM</a>
+            @endif
+
+            @if (Route::is('wisata.index'))
+                <a class="active" onclick="return false;">WISATA</a>
+            @else
+                <a href="{{ route('wisata.index') }}">WISATA</a>
+            @endif
+
             <a href="#" class="header-search" onclick="scrollToCenter()">
-            <i class="fa fa-search"></i>
+                <i class="fa fa-search"></i>
             </a>
         </nav>
         </div>

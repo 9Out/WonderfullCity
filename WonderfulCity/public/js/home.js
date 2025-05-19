@@ -3,15 +3,20 @@
         // ------------------ //
 
         // const images = @json($imagePaths); // Bila dinamis misalnya dari controller
-        const images = [
-            'images/1.png',
-            'images/2.png'
-        ];
+        // const images = [
+        //     'images/1.png',
+        //     'images/2.png'
+        // ];
+
+        const images = (window.carouselImages || []).map(path => `${window.storageBase}/${path}`);
+
         let currentIndex = 0;
 
         function showImage(index) {
             const img = document.getElementById('carousel-image');
-            img.src = images[index];
+            if (img) {
+                img.src = images[index];
+            }
         }
 
         function prevImage() {
@@ -25,12 +30,10 @@
         }
 
         // Tampilkan gambar pertama saat halaman dimuat
-        showImage(currentIndex);
-
-        // Ganti otomatis setiap 5 detik
-        setInterval(() => {
-            nextImage();
-        }, 10000); // 10000 ms = 10 detik
+        document.addEventListener('DOMContentLoaded', () => {
+            showImage(currentIndex);
+            setInterval(nextImage, 10000); // ganti 10 detik
+        });
 
         // -------------------- //
         // SCRIPT INPUT FOCUSED //

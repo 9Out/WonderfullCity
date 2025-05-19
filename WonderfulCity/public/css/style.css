@@ -227,12 +227,12 @@ a:active {
     height: 60px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 20px;
+    font-size: 24px;
     background-color: rgba(0, 0, 0, 0.4);
     color: white;
     border: none;
     cursor: pointer;
-    padding: 10px 10px 15px;
+    padding: 10px;
     z-index: 10;
     border-radius: 50%;
 }
@@ -339,14 +339,6 @@ a:active {
     border-radius: 4px;
     background-size: cover;
     background-position: center;
-}
-
-.head-preview .cover-1 {
-    background: url(umkm.png) lightgray -44.418px 0px / 133.272% 100% no-repeat;
-}
-
-.head-preview .cover-2 {
-    background: url(wisata.png) lightgray -44.418px 0px / 133.272% 100% no-repeat;
 }
 
 .head-preview .desc-head {
