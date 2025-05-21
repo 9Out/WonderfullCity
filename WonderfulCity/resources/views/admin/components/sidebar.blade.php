@@ -25,7 +25,7 @@
         </li>
         <li class="side-item" title="Logout">
             {{-- <form id="logout-form" action="{{ route('logout') }}" method="post"> --}}
-            <form id="logout-form" action="" method="post">
+            <form id="logout-form" action="{{ route('logout') }}" method="post">
                 @csrf
                 <a class="logout" href="" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <span class="side-icon"><i class="fa fa-right-from-bracket"></i>Logout</span>

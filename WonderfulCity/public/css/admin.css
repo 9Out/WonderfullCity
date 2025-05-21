@@ -1,11 +1,11 @@
 :root {
-    --color-blk: #20272f;
-    --color-blw: #76b5c5;
-    --color-hvr: #08ae8d;
-    --color3: #63acbe;
+    --color-blk: #2C365D;
+    --color-blw: #374786;
+    --color-hvr: #ffc720;
+    --color3: #2f3185;
     --color3-darker: hsl(from var(--color3) h s calc(l - 15));
     --color3-darkest: hsl(from var(--color3) h s calc(l - 20));
-    --black: #333;
+    --black: #000;
     --black2: #222;
     --white: #fff;
     --white2: #efefef;
@@ -289,7 +289,7 @@ button .fa-regular {
 .footer {
     height: 3rem;
     grid-area: footer;
-    background-color: #2c3e50;
+    background-color: var(--color-blw);
     color: #ecf0f1;
     z-index: 100;
     display: flex;
@@ -319,11 +319,12 @@ button .fa-regular {
     user-select: none;
 }
 .header .box1 .fa-bars {
-    transform: rotate(-90deg);
+    /* transform: rotate(-90deg); */
+    transform: rotate(0);
     transition: transform 0.3s ease;
 }
 .header .box1 .fa-bars.show {
-    transform: rotate(0);
+    /* transform: rotate(0); */
 }
 .header .box1 .menu-toggle:hover {
     background-color: #0f151b43;
@@ -344,8 +345,9 @@ button .fa-regular {
 .header .user {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 1rem;
     padding: 0 1.5em;
+    font-size: 1.5rem;
     font-weight: bold;
 }
 .header .user .profile-picture {
@@ -519,6 +521,7 @@ button .fa-regular {
     gap: 1.5rem;
 }
 .content .status-container .card {
+    flex: 1;
     width: 360px;
     height: 150px;
     color: white;

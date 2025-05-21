@@ -56,7 +56,7 @@
 
         <div class="info">
             <p class="label">Embed Google Maps:</p>
-            <p><small>Jika tidak diunggah semua, gambar lama tetap dipakai.</small></p>
+            <p style="margin-bottom: 4px;color: blue;"><small>Tipe url yang dipakai: https://www.google.com/maps/embed?...</small></p>
             <p>{{ $data->map_link }}</p>
         </div>
 
