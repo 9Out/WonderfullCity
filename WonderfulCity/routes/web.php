@@ -16,21 +16,33 @@ Route::get('/umkm', [UmkmController::class, 'index'])->name('umkm.index');
 Route::get('/wisata', [WisataController::class, 'index'])->name('wisata.index');
 
 // Content
-Route::get('/umkm/1', [UmkmController::class, 'show'])->name('umkm.show');
+Route::get('/umkm/{slug}', [UmkmController::class, 'show'])->name('umkm.show');
 Route::get('/wisata/{id}', [WisataController::class, 'show'])->name('wisata.show');  
 
 
-// ADMIN // -> Perlu Modifikasi Agar Bisa diAses saat login saja
-// Hal Dashboard
-Route::get('/admin', [DashboardController::class, 'index'])->name('dashboard.index');
-// Hal Landing 
-Route::get('/admin/landing', [LandingController::class, 'show'])->name('landing.show'); //show
-Route::get('/admin/landing/edit', [LandingController::class, 'edit'])->name('landing.edit'); //open form
-Route::post('/admin/landing/update', [LandingController::class, 'update'])->name('landing.update'); //send changes
+// Halaman ADMIN (Dengan proteksi auth)
+Route::middleware('auth')->group(function () {
+    // Dashboard
+    Route::get('/admin', [DashboardController::class, 'index'])->name('dashboard.index');
+    
+    // Landing Page 
+    Route::get('/admin/landing', [LandingController::class, 'show'])->name('landing.show'); //show
+    Route::get('/admin/landing/edit', [LandingController::class, 'edit'])->name('landing.edit'); //open form
+    Route::post('/admin/landing/update', [LandingController::class, 'update'])->name('landing.update'); //send changes
+});
+// UMKM
+Route::get('admin/umkm', [UmkmController::class, 'admindex'])->name('umkm.admin');
+Route::get('admin/umkm-create', [UmkmController::class, 'create'])->name('umkm.create');
+Route::post('admin/umkm-store', [UmkmController::class, 'store'])->name('umkm.store');
+Route::get('admin/umkm-edit/{umkm}', [UmkmController::class, 'edit'])->name('umkm.edit');
+Route::put('admin/umkm-update/{umkm}', [UmkmController::class, 'update'])->name('umkm.update');
+Route::delete('/admin/umkm-delete/{umkm}', [UmkmController::class, 'destroy'])->name('umkm.destroy');
+
 // Login
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login-submit');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
 // Lupa Password
 Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');

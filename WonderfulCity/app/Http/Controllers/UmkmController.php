@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Umkm;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class UmkmController extends Controller
 {
@@ -19,7 +24,7 @@ class UmkmController extends Controller
      */
     public function create()
     {
-        // 
+        return view('admin.pages.create.umkm-create');
     }
 
     /**
@@ -27,31 +32,57 @@ class UmkmController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_umkm' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'foto_utama' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'list_foto.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $fotoUtamaPath = null;
+        if ($request->hasFile('foto_utama')) {
+            $fotoUtamaPath = $request->file('foto_utama')->store('umkm/foto_utama', 'public');
+        }
+
+        $listFotoPaths = [];
+        if ($request->hasFile('list_foto')) {
+            foreach ($request->file('list_foto') as $foto) {
+                $listFotoPaths[] = $foto->store('umkm/galeri', 'public');
+            }
+        }
+
+        $umkm = Umkm::create([
+            'nama_umkm' => $request->nama_umkm,
+            'slug' => Str::slug($request->nama_umkm) . '-' . Str::random(4),
+            'deskripsi' => $request->deskripsi,
+            'foto_utama' => $fotoUtamaPath,
+            'list_foto' => $listFotoPaths,
+        ]);
+
+        return redirect()->route('umkm.admin')->with('success', 'UMKM berhasil ditambahkan!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show($slug)
     {
-        // $Umkm = Umkm::findOrFail($id);
-        // return view('pages.content', compact('Umkm'));
-        return view('pages.content');
+        $Umkm = Umkm::where('slug', $slug)->firstOrFail();
+        return view('pages.content', compact('Umkm'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Umkm $umkm)
     {
-        return view('umkm.edit', compact('umkm'));
+        return view('admin.pages.update.umkm-edit', compact('umkm'));
     }
     
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Umkm $umkm)
     {
         $request->validate([
             'nama_umkm' => 'required|string|max:255',
@@ -59,49 +90,128 @@ class UmkmController extends Controller
             'foto_utama' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'list_foto.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
-    
-        // Update foto utama jika diunggah
+
+        // Update foto utama jika diubah
         if ($request->hasFile('foto_utama')) {
-            // Storage::disk('public')->delete($umkm->foto_utama);
-            $umkm->foto_utama = $request->file('foto_utama')->store('umkm', 'public');
+            if ($umkm->foto_utama && Storage::disk('public')->exists($umkm->foto_utama)) {
+                Storage::disk('public')->delete($umkm->foto_utama);
+            }
+            $umkm->foto_utama = $request->file('foto_utama')->store('umkm/foto_utama', 'public');
         }
-    
-        // Update list foto jika diunggah
+
+        $list_foto = $umkm->list_foto ?? [];
+
+        // Jika user centang "Ganti semua galeri lama"
+        if ($request->has('replace_all_galeri')) {
+            // Hapus semua galeri lama
+            foreach ($list_foto as $lama) {
+                if (Storage::disk('public')->exists($lama)) {
+                    Storage::disk('public')->delete($lama);
+                }
+            }
+            $list_foto = [];
+        }
+
+        // Hapus satu per satu galeri yang dicentang
+        if ($request->has('hapus_foto_lama')) {
+            foreach ($request->hapus_foto_lama as $hapus) {
+                if (($key = array_search($hapus, $list_foto)) !== false) {
+                    if (Storage::disk('public')->exists($hapus)) {
+                        Storage::disk('public')->delete($hapus);
+                    }
+                    unset($list_foto[$key]);
+                }
+            }
+            $list_foto = array_values($list_foto); // Reset index
+        }
+
+        // Tambah foto galeri baru (jika ada)
         if ($request->hasFile('list_foto')) {
-            // Hapus foto lama
-            $oldFotos = explode(',', $umkm->list_foto);
-            foreach ($oldFotos as $old) {
-                Storage::disk('public')->delete($old);
-            }
-    
-            $listFotoNames = [];
             foreach ($request->file('list_foto') as $foto) {
-                $path = $foto->store('umkm', 'public');
-                $listFotoNames[] = $path;
+                $list_foto[] = $foto->store('umkm/galeri', 'public');
             }
-    
-            $umkm->list_foto = implode(',', $listFotoNames);
         }
-    
-        $umkm->nama_umkm = $request->nama_umkm;
-        $umkm->deskripsi = $request->deskripsi;
-        $umkm->save();
-    
-        return redirect()->route('umkm.index')->with('success', 'UMKM berhasil diperbarui.');
+
+        // Update data
+        $umkm->update([
+            'nama_umkm' => $request->nama_umkm,
+            'slug' => Str::slug($request->nama_umkm) . '-' . Str::random(4),
+            'deskripsi' => $request->deskripsi,
+            'foto_utama' => $umkm->foto_utama,
+            'list_foto' => array_values($list_foto),
+        ]);
+
+        return redirect()->route('umkm.admin')->with('success', 'UMKM berhasil diperbarui!');
     }
     
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Umkm $umkm)
     {
-        Storage::disk('public')->delete($umkm->foto_utama);
-        foreach (explode(',', $umkm->list_foto) as $foto) {
-            Storage::disk('public')->delete($foto);
+        // Hapus foto utama jika ada
+        if ($umkm->foto_utama && Storage::disk('public')->exists($umkm->foto_utama)) {
+            Storage::disk('public')->delete($umkm->foto_utama);
+        }
+
+        // Hapus semua list foto galeri
+        if ($umkm->list_foto) {
+            foreach ($umkm->list_foto as $foto) {
+                if (Storage::disk('public')->exists($foto)) {
+                    Storage::disk('public')->delete($foto);
+                }
+            }
         }
 
         $umkm->delete();
 
-        return redirect()->route('umkm.index')->with('success', 'UMKM berhasil dihapus.');
+        return redirect()->route('umkm.admin')->with('success', 'Data UMKM berhasil dihapus.');
+    }
+
+    /**
+     * Display Admin Views.
+     */
+    public function admindex()
+    {
+        Log::info('Masuk admindex');
+        if (request()->ajax()) {
+            Log::info('Request AJAX diterima');
+            $umkm = Umkm::all();
+            return DataTables::of($umkm)
+            ->addIndexColumn()
+            ->editColumn('foto_utama', function ($row) {
+                $src = $row->foto_utama ? asset('storage/' . $row->foto_utama) : '';
+                return $src
+                    ? '<img src="' . $src . '" width="75" height="75" style="object-fit: cover;" alt="foto">'
+                    : '🖼️';
+            })
+            ->addColumn('jumlah_foto', function ($row) {
+                return is_array($row->list_foto) ? count($row->list_foto) : 0;
+            })
+            ->editColumn('created_at', function ($row) {
+                return $row->created_at->format('Y-m-d');
+            })
+            ->addColumn('action', function ($row) {
+                return '<a href="' . route('umkm.edit', $row->id) . '"class="btn btn-sm btn-secondary btn-40">
+                            <i class="fa fa-pen-to-square"></i>
+                            Edit
+                        </a>
+                        <form action="' . route('umkm.destroy', $row->id) . '" method="POST" style="display:inline">'
+                        . csrf_field()
+                        . method_field('DELETE')
+                        . '<button type="submit" onclick="return confirm(\'Hapus data ini?\')" class="btn btn-sm btn-danger btn-40">
+                                <i class="fa fa-trash-can"></i>
+                                Delete
+                            </button></form>
+                        <a href="' . route('umkm.show', $row->slug) . '"class="btn btn-sm btn-primary btn-40">
+                            <i class="fa fa-eye"></i>
+                            Lihat
+                        </a>';
+            })
+            ->rawColumns(['foto_utama', 'action'])
+            ->make(true);
+        }
+        
+        return view('admin.pages.umkm-admin');
     }
 }

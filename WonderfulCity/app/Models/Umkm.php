@@ -6,19 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Umkm extends Model
 {
-    protected $table = 'umkms'; // default Laravel pakai plural
-    public $timestamps = false;
+    protected $table = 'umkms';
 
     protected $fillable = [
         'nama_umkm',
+        'slug',
         'deskripsi',
         'foto_utama',
         'list_foto',
     ];
 
-    // Custom accessor untuk array list_foto
-    public function getListFotoArrayAttribute()
-    {
-        return explode(',', $this->list_foto);
-    }
+    protected $casts = [
+        'list_foto' => 'array',
+    ];
+
+    public $timestamps = true;
 }

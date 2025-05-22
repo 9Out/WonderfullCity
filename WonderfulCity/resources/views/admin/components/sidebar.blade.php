@@ -5,22 +5,22 @@
                 <span class="side-icon"><i class="fa fa-dashboard"></i>Dashboard</span>
             </a>
         </li>
-        <li class="side-item" title="Data UMKM">
+        <li class="side-item" title="Postingan UMKM">
             {{-- <a href="{{ route('umkm.admin') }}"> --}}
-            <a href="">
-                <span class="side-icon"><i class="fa fa-table"></i>Data UMKM</span>
+            <a href="{{ route('umkm.admin') }}">
+                <span class="side-icon"><i class="fa fa-file-lines"></i>UMKM</span>
             </a>
         </li>
-        <li class="side-item" title="Data Wisata">
+        <li class="side-item" title="Postingan Wisata">
             {{-- <a href="{{ route('wisata.admin') }}"> --}}
             <a href="">
-                <span class="side-icon"><i class="fa fa-table"></i>Data Wisata</span>
+                <span class="side-icon"><i class="fa fa-file-lines"></i>Wisata</span>
             </a>
         </li>
         <li class="side-item" title="Informasi Landing">
             {{-- <a href="{{ route('landing.admin') }}"> --}}
             <a href="{{ route('landing.show') }}">
-                <span class="side-icon"><i class="fa fa-table"></i>Informasi Landing</span>
+                <span class="side-icon"><i class="fa fa-gear"></i>Landing Page</span>
             </a>
         </li>
         <li class="side-item" title="Logout">

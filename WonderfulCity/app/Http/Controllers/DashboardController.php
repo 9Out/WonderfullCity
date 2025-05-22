@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Umkm;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -11,7 +12,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.dashboard');
+        $countUmkm = Umkm::count();
+        return view('admin.pages.dashboard', compact(['countUmkm']));
     }
 
     /**
