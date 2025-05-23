@@ -1,32 +1,32 @@
 @extends('admin.layouts.crud')
 
-@section('title', 'Tambah UMKM')
+@section('title', 'Tambah Wisata')
 
 @section('links')
 @endsection
 
 @section('content')
 <div class="w-full max-w-4xl mx-auto mt-10 bg-white p-6 rounded shadow">
-    <h1 class="text-2xl font-bold mb-6">Tambah UMKM</h1>
+    <h1 class="text-2xl font-bold mb-6">Tambah Wisata</h1>
 
     @include('admin.components.error')
         
     <div class="form-header mb-5">
         <h2 class="font-bold"></h2>
-        <a href="{{ route('umkm.admin') }}" class="close-btn" id="backButton">
+        <a href="{{ route('wisata.admin') }}" class="close-btn" id="backButton">
             <i class="fa-regular fa-circle-left"></i>
             <span class="close-caption">Back</span>
         </a>
     </div>
     
     <div class="form-body">
-        <form action="{{ route('umkm.store') }}" method="POST" enctype="multipart/form-data" id="inputForm">
+        <form action="{{ route('wisata.store') }}" method="POST" enctype="multipart/form-data" id="inputForm">
         @csrf
 
-        <!-- Nama UMKM -->
+        <!-- Nama Wisata -->
         <div class="mb-4">
-            <label class="block text-sm font-semibold mb-1">Nama UMKM</label>
-            <input type="text" name="nama_umkm" class="w-full bg-gray-100 border rounded px-3 py-2" required>
+            <label class="block text-sm font-semibold mb-1">Nama Wisata</label>
+            <input type="text" name="nama_wisata" class="w-full bg-gray-100 border rounded px-3 py-2" required>
         </div>
 
         <!-- Deskripsi -->
@@ -45,7 +45,7 @@
         <div class="mb-4">
             <label class="block text-sm font-semibold mb-1">Link Google Maps</label>
             <input type="url" name="link_map" class="w-full border rounded px-3 py-2" placeholder="https://goo.gl/maps/...">
-            <p class="text-sm text-gray-500 mt-1">Masukkan tautan Google Maps lokasi UMKM.</p>
+            <p class="text-sm text-gray-500 mt-1">Masukkan tautan Google Maps lokasi Wisata.</p>
         </div>
 
         <!-- Foto Utama -->

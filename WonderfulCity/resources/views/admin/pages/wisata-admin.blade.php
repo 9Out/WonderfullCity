@@ -1,6 +1,6 @@
 @extends('admin.layouts/adminlayout')
 
-@section('title', 'UMKM')
+@section('title', 'Wisata')
 
 @push('links')
     <!-- DataTables CSS & JS -->
@@ -9,9 +9,9 @@
 
 @section('content')
 
-<h1>Data UMKM</h1>
+<h1>Data Wisata</h1>
 <div class="aksi">
-    <a href="{{ route('umkm.create') }}" class="button button-blue"><i class="fa-regular fa-square-plus"></i>Tambah UMKM</a>
+    <a href="{{ route('wisata.create') }}" class="button button-blue"><i class="fa-regular fa-square-plus"></i>Tambah Wisata</a>
 </div>
 
 @include('admin.components.success')
@@ -22,7 +22,7 @@
         <tr>
             <th>#</th>
             <th>Foto</th>
-            <th>Nama UMKM</th>
+            <th>Nama Wisata</th>
             <th>Jumlah Foto</th>
             <th>Tanggal Dibuat</th>
             <th>Aksi</th>
@@ -33,7 +33,7 @@
         <tr>
             <th class="foot">#</th>
             <th class="foot">Foto</th>
-            <th class="foot">Nama UMKM</th>
+            <th class="foot">Nama Wisata</th>
             <th class="foot">Jumlah Foto</th>
             <th class="foot">Tanggal Dibuat</th>
             <th class="foot">Aksi</th>
@@ -54,7 +54,7 @@
             $('#items-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route("umkm.admin") }}',
+                ajax: '{{ route("wisata.admin") }}',
                 language: {
                     emptyTable: "Tidak ada data tersedia",
                     processing: "<i class='fa fa-refresh fa-spin'></i> Memuat..."
@@ -75,7 +75,7 @@
                         orderable: false,
                         searchable: false
                     },
-                    { data: 'nama_umkm', name: 'nama_umkm' },
+                    { data: 'nama_wisata', name: 'nama_wisata' },
                     {
                         data: 'jumlah_foto',
                         name: 'jumlah_foto',

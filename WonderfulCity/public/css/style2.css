@@ -5,6 +5,10 @@
     font-family: 'Tahoma', sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     min-height: 100vh;
     width: 100%;
@@ -238,12 +242,14 @@ a:active {
     gap: 10px;
 }
 
-.right-images .top-rigth,
-.right-images .bottom-rigth {
+.right-images .top-right,
+.right-images .bottom-right {
     flex: 1;
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
     overflow: hidden;
 }
 
@@ -370,12 +376,31 @@ a.caption:hover {
     gap: 60px 20px;
     padding: 30px 10% 60px;
     justify-items: center;
+    /* min-height: 1070px; */
+}
+
+.fixed-height-container {
+    min-height: calc(4 * 260px);
+}
+
+#umkm-list {
+    scroll-margin-top: 220px;
+}
+#wisata-list {
+    scroll-margin-top: 220px;
 }
 
 .card {
     position: relative;
     width: 100%;
     max-width: 350px;
+}
+
+.dummy-card {
+    background: none;
+    box-shadow: none;
+    border: none;
+    height: 260px;
 }
 
 .card-image {
@@ -406,7 +431,8 @@ a.caption:hover {
 
 .card-caption {
     position: absolute;
-    top: 100%;
+    /* top: 100%; */
+    top: unset;
     left: 50%;
     transform: translate(-50%, -65%);
     background-color: #374786;
@@ -460,6 +486,57 @@ a.detail-button {
 .detail-button:hover {
     background: #e6b600;
 }
+
+
+/* === PAGINATION === */
+.pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    flex-wrap: wrap;
+}
+
+.pagination li {
+    display: inline-block;
+}
+
+.pagination a,
+.pagination .active,
+.pagination .disabled {
+    padding: 8px 14px;
+    border-radius: 8px;
+    background-color: #374786;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.2s ease-in-out;
+}
+
+.pagination a:hover {
+    background-color: #2f3c6b;
+}
+
+.pagination .active {
+    background-color: #ffcc00;
+    color: #374786;
+    cursor: default;
+}
+
+.pagination .disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
 
 
 

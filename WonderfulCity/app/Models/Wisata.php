@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Umkm extends Model
+class Wisata extends Model
 {
-    protected $table = 'umkms';
+    protected $table = 'wisatas';
 
     protected $fillable = [
-        'nama_umkm',
+        'nama_wisata',
         'slug',
         'deskripsi',
         'foto_utama',

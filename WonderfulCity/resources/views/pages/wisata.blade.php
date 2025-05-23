@@ -20,21 +20,21 @@
         <div class="gallery-container">
             <div class="left-image">
                 <div class="image-wrapper">
-                    <img src="https://picsum.photos/1280/720/" alt="Gambar 1">
-                    <a href="#" class="caption">Judul Gambar Pertama yang Panjang Sekali Hingga Harus Terpotong | Judul Gambar Pertama yang Panjang Sekali Hingga Harus Terpotong</a>
+                    <img src="{{ asset('storage/' . $wisata[0]->foto_utama) }}" alt="{{ $wisata[0]->nama_wisata }}">
+                    <a href="{{ route('wisata.show', $wisata[0]->slug) }}" class="caption">{{ $wisata[0]->nama_wisata }}</a>
                 </div>
             </div>
             <div class="right-images">
                 <div class="top-right">
                     <div class="image-wrapper">
-                        <img src="https://picsum.photos/1280/720/" alt="Gambar 2">
-                        <a href="#" class="caption">Judul Gambar Kedua</a>
+                        <img src="{{ asset('storage/' . $wisata[1]->foto_utama) }}" alt="{{ $wisata[1]->nama_wisata }}">
+                        <a href="{{ route('wisata.show', $wisata[1]->slug) }}" class="caption">{{ $wisata[1]->nama_wisata }}</a>
                     </div>
                 </div>
                 <div class="bottom-right">
                     <div class="image-wrapper">
-                        <img src="https://picsum.photos/1280/720/" alt="Gambar 3">
-                        <a href="#" class="caption">Judul Gambar Ketiga</a>
+                        <img src="{{ asset('storage/' . $wisata[2]->foto_utama) }}" alt="{{ $wisata[2]->nama_wisata }}">
+                        <a href="{{ route('wisata.show', $wisata[2]->slug) }}" class="caption">{{ $wisata[2]->nama_wisata }}</a>
                     </div>
                 </div>
             </div>
@@ -43,7 +43,7 @@
     
     <section class="content search">
         <span class="divider"></span>
-        <form id="search-section" class="input-container w-50-right" action="#" method="GET">
+        <form id="search-form" class="input-container w-50-right" action="javascript:void(0);" method="GET">
             <input type="text" name="search" id="search" placeholder="Cari Destinasi Wisata">
             <button type="submit" class="btn-search">
                 Cari <i class="fa-solid fa-magnifying-glass"></i>
@@ -53,47 +53,56 @@
     </section>
 
 
-    <section class="content card-container">
-        <div class="card">
-            <div class="card-image">
-                <img src="https://picsum.photos/200/300" alt="Keraton Kasunanan Surakarta">
-            </div>
-            <div class="card-caption">
-                <div class="caption-text-wrapper">
-                    <h3>Keraton Kasunanan Surakarta</h3>
-                </div>
-                <a href="#" class="detail-button">Detail</a>
-            </div>
-        </div>
-
-        <!-- Duplikat card -->
-        <div class="card">
-            <div class="card-image">
-                <img src="https://picsum.photos/200/300" alt="Keraton Kasunanan Surakarta">
-            </div>
-            <div class="card-caption">
-                <div class="caption-text-wrapper">
-                    <h3>Keraton Yogyakarta</h3>
-                </div>
-                <a href="#" class="detail-button">Detail</a>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-image">
-                <img src="https://picsum.photos/200/300" alt="Keraton Kasunanan Surakarta">
-            </div>
-            <div class="card-caption">
-                <div class="caption-text-wrapper">
-                    <h3>Pura Mangkunegaran</h3>
-                </div>
-                <a href="#" class="detail-button">Detail</a>
-            </div>
-        </div>
+    <section class="content card-container" id="wisata-list">
+        @include('partials.wisata-cards', ['wisataCard' => $wisataCard])
     </section>
+
+    <!-- Pagination -->
+    <div class="pagination-wrapper" id="pagination-container">
+        @include('partials.wisata-pagination', ['wisataCard' => $wisataCard])
+    </div>
 @endsection
 
 @push('scripts')
     <!-- JavaScript -->
     <script src="{{ asset('js/top.js') }}"></script>
+    <script>
+        // Fungsi fetch data Wisata pakai AJAX
+        function fetchWisata(url) {
+            const keyword = document.getElementById('search').value;
+
+            fetch(`${url}?search=${encodeURIComponent(keyword)}`, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('wisata-list').innerHTML = data.html;
+                document.getElementById('pagination-container').innerHTML = data.pagination;
+                attachPaginationEvents();
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Pasang event click pada pagination untuk AJAX
+        function attachPaginationEvents() {
+            const links = document.querySelectorAll('#pagination-container a.page-link');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    fetchWisata(this.href);
+                });
+            });
+        }
+
+        // Event submit form cari
+        document.getElementById('search-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            fetchWisata("{{ route('wisata.search') }}");
+        });
+
+        // Pasang event pagination saat halaman pertama dimuat
+        attachPaginationEvents();
+    </script>
 @endpush

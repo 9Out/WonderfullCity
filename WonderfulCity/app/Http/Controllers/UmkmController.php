@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Umkm;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -16,7 +17,9 @@ class UmkmController extends Controller
      */
     public function index()
     {
-        return view('pages.umkm');
+        $umkm = Umkm::latest()->take(3)->get();
+        $umkmCard = Umkm::orderBy('nama_umkm', 'asc')->paginate(9);
+        return view('pages.umkm', compact(['umkm', 'umkmCard']));
     }
 
     /**
@@ -37,6 +40,29 @@ class UmkmController extends Controller
             'deskripsi' => 'required|string',
             'foto_utama' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'list_foto.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'alamat' => 'required|string|max:255',
+            'link_map' => 'nullable|url',
+        ], [
+            'nama_umkm.required'   => 'Nama UMKM wajib diisi.',
+            'nama_umkm.string'     => 'Nama UMKM harus berupa teks.',
+            'nama_umkm.max'        => 'Nama UMKM maksimal 255 karakter.',
+            
+            'deskripsi.required'   => 'Deskripsi wajib diisi.',
+            'deskripsi.string'     => 'Deskripsi harus berupa teks.',
+            
+            'foto_utama.image'     => 'Foto utama harus berupa gambar.',
+            'foto_utama.mimes'     => 'Foto utama harus berformat jpeg, png, atau jpg.',
+            'foto_utama.max'       => 'Ukuran foto utama maksimal 2MB.',
+
+            'list_foto.*.image'    => 'Setiap foto tambahan harus berupa gambar.',
+            'list_foto.*.mimes'    => 'Foto tambahan harus berformat jpeg, png, atau jpg.',
+            'list_foto.*.max'      => 'Ukuran setiap foto tambahan maksimal 2MB.',
+
+            'alamat.required'      => 'Alamat wajib diisi.',
+            'alamat.string'        => 'Alamat harus berupa teks.',
+            'alamat.max'           => 'Alamat tidak boleh lebih dari 255 karakter.',
+
+            'link_map.url'         => 'Link Map harus berupa URL yang valid.',
         ]);
 
         $fotoUtamaPath = null;
@@ -57,6 +83,8 @@ class UmkmController extends Controller
             'deskripsi' => $request->deskripsi,
             'foto_utama' => $fotoUtamaPath,
             'list_foto' => $listFotoPaths,
+            'alamat' => $request->alamat,
+            'link_map' => $request->link_map,
         ]);
 
         return redirect()->route('umkm.admin')->with('success', 'UMKM berhasil ditambahkan!');
@@ -67,8 +95,8 @@ class UmkmController extends Controller
      */
     public function show($slug)
     {
-        $Umkm = Umkm::where('slug', $slug)->firstOrFail();
-        return view('pages.content', compact('Umkm'));
+        $umkm = Umkm::where('slug', $slug)->firstOrFail();
+        return view('pages.content', compact('umkm'));
     }
 
     /**
@@ -89,6 +117,29 @@ class UmkmController extends Controller
             'deskripsi' => 'required|string',
             'foto_utama' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'list_foto.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'alamat' => 'required|string|max:255',
+            'link_map' => 'nullable|url'
+        ], [
+            'nama_umkm.required'   => 'Nama UMKM wajib diisi.',
+            'nama_umkm.string'     => 'Nama UMKM harus berupa teks.',
+            'nama_umkm.max'        => 'Nama UMKM maksimal 255 karakter.',
+            
+            'deskripsi.required'   => 'Deskripsi wajib diisi.',
+            'deskripsi.string'     => 'Deskripsi harus berupa teks.',
+            
+            'foto_utama.image'     => 'Foto utama harus berupa gambar.',
+            'foto_utama.mimes'     => 'Foto utama harus berformat jpeg, png, atau jpg.',
+            'foto_utama.max'       => 'Ukuran foto utama maksimal 2MB.',
+
+            'list_foto.*.image'    => 'Setiap foto tambahan harus berupa gambar.',
+            'list_foto.*.mimes'    => 'Foto tambahan harus berformat jpeg, png, atau jpg.',
+            'list_foto.*.max'      => 'Ukuran setiap foto tambahan maksimal 2MB.',
+
+            'alamat.required'      => 'Alamat wajib diisi.',
+            'alamat.string'        => 'Alamat harus berupa teks.',
+            'alamat.max'           => 'Alamat tidak boleh lebih dari 255 karakter.',
+
+            'link_map.url'         => 'Link Map harus berupa URL yang valid.',
         ]);
 
         // Update foto utama jika diubah
@@ -139,6 +190,8 @@ class UmkmController extends Controller
             'deskripsi' => $request->deskripsi,
             'foto_utama' => $umkm->foto_utama,
             'list_foto' => array_values($list_foto),
+            'alamat' => $request->alamat,
+            'link_map' => $request->link_map,
         ]);
 
         return redirect()->route('umkm.admin')->with('success', 'UMKM berhasil diperbarui!');
@@ -173,10 +226,8 @@ class UmkmController extends Controller
      */
     public function admindex()
     {
-        Log::info('Masuk admindex');
         if (request()->ajax()) {
-            Log::info('Request AJAX diterima');
-            $umkm = Umkm::all();
+            $umkm = Umkm::select(['id', 'nama_umkm', 'slug', 'deskripsi', 'foto_utama', 'list_foto', 'created_at']);
             return DataTables::of($umkm)
             ->addIndexColumn()
             ->editColumn('foto_utama', function ($row) {
@@ -189,7 +240,7 @@ class UmkmController extends Controller
                 return is_array($row->list_foto) ? count($row->list_foto) : 0;
             })
             ->editColumn('created_at', function ($row) {
-                return $row->created_at->format('Y-m-d');
+                return Carbon::parse($row->created_at)->timezone('Asia/Jakarta')->format('d M Y H:i');
             })
             ->addColumn('action', function ($row) {
                 return '<a href="' . route('umkm.edit', $row->id) . '"class="btn btn-sm btn-secondary btn-40">
@@ -213,5 +264,34 @@ class UmkmController extends Controller
         }
         
         return view('admin.pages.umkm-admin');
+    }
+
+    /**
+     * Search UMKM Ajax.
+     */
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        // Query pencarian UMKM
+        $umkmCard = \App\Models\Umkm::where('nama_umkm', 'like', "%{$search}%")
+            ->orderBy('nama_umkm')
+            ->paginate(9);
+
+        // Cek apakah request AJAX
+        if ($request->ajax()) {
+            $html = view('partials.umkm-cards', compact('umkmCard'))->render();
+            $pagination = view('partials.umkm-pagination', compact('umkmCard'))->render();
+
+            return response()->json([
+                'html' => $html,
+                'pagination' => $pagination,
+            ]);
+        }
+
+        // Kalau bukan AJAX, arahkan ke halaman yang sesuai (misal halaman daftar UMKM)
+        $umkm = Umkm::latest()->take(3)->get();
+
+        return view('pages.umkm', compact('umkm', 'umkmCard'));
     }
 }

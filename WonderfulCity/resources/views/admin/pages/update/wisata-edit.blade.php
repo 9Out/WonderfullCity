@@ -1,58 +1,58 @@
 @extends('admin.layouts.crud')
 
-@section('title', 'Edit UMKM')
+@section('title', 'Edit Wisata')
 
 @section('links')
 @endsection
 
 @section('content')
 <div class="w-full max-w-4xl mx-auto mt-10 bg-white p-6 rounded shadow">
-    <h1 class="text-2xl font-bold mb-6">Edit Data UMKM</h1>
+    <h1 class="text-2xl font-bold mb-6">Edit Data Wisata</h1>
 
     <div class="form-header mb-5">
         <h2 class="font-bold"></h2>
-        <a href="{{ route('umkm.admin') }}" class="close-btn" id="backButton">
+        <a href="{{ route('wisata.admin') }}" class="close-btn" id="backButton">
             <i class="fa-regular fa-circle-left"></i>
             <span class="close-caption">Back</span>
         </a>
     </div>
 
     <div class="form-body">
-    <form action="{{ route('umkm.update', $umkm->id) }}" method="POST" enctype="multipart/form-data" id="inputForm">
+    <form action="{{ route('wisata.update', $wisata->id) }}" method="POST" enctype="multipart/form-data" id="inputForm">
         @csrf
         @method('PUT')
 
-        <!-- Nama UMKM -->
+        <!-- Nama Wisata -->
         <div class="mb-4">
-            <label class="block text-sm font-semibold mb-1">Nama UMKM</label>
-            <input type="text" name="nama_umkm" class="w-full border rounded px-3 py-2" value="{{ old('nama_umkm', $umkm->nama_umkm) }}" required>
+            <label class="block text-sm font-semibold mb-1">Nama Wisata</label>
+            <input type="text" name="nama_wisata" class="w-full border rounded px-3 py-2" value="{{ old('nama_wisata', $wisata->nama_wisata) }}" required>
         </div>
 
         <!-- Deskripsi -->
         <div class="mb-4">
             <label class="block text-sm font-semibold mb-1">Deskripsi</label>
-            <textarea name="deskripsi" rows="4" class="w-full border rounded px-3 py-2" required>{{ old('deskripsi', $umkm->deskripsi) }}</textarea>
+            <textarea name="deskripsi" rows="4" class="w-full border rounded px-3 py-2" required>{{ old('deskripsi', $wisata->deskripsi) }}</textarea>
         </div>
 
         <!-- Alamat -->
         <div class="mb-4">
             <label class="block text-sm font-semibold mb-1">Alamat</label>
-            <input type="text" name="alamat" class="w-full border rounded px-3 py-2" value="{{ old('alamat', $umkm->alamat) }}" required>
+            <input type="text" name="alamat" class="w-full border rounded px-3 py-2" value="{{ old('alamat', $wisata->alamat) }}" required>
         </div>
 
         <!-- Link Map -->
         <div class="mb-4">
             <label class="block text-sm font-semibold mb-1">Link Google Maps</label>
-            <input type="url" name="link_map" class="w-full border rounded px-3 py-2" placeholder="https://goo.gl/maps/..." value="{{ old('link_map', $umkm->link_map) }}">
-            <p class="text-sm text-gray-500 mt-1">Masukkan tautan Google Maps lokasi UMKM.</p>
+            <input type="url" name="link_map" class="w-full border rounded px-3 py-2" placeholder="https://goo.gl/maps/..." value="{{ old('link_map', $wisata->link_map) }}">
+            <p class="text-sm text-gray-500 mt-1">Masukkan tautan Google Maps lokasi Wisata.</p>
         </div>
 
         <!-- Foto Utama -->
         <div class="mb-4">
             <label class="block text-sm font-semibold mb-1">Foto Utama</label>
-            @if($umkm->foto_utama)
+            @if($wisata->foto_utama)
                 <p class="mb-2">Saat ini:</p>
-                <img src="{{ asset('storage/' . $umkm->foto_utama) }}" class="w-32 h-32 object-cover rounded border mb-2">
+                <img src="{{ asset('storage/' . $wisata->foto_utama) }}" class="w-32 h-32 object-cover rounded border mb-2">
             @endif
             <input type="file" name="foto_utama" accept="image/*" onchange="previewUtama(event)" required>
             <img id="preview-foto-utama" class="w-32 h-32 object-cover rounded border mt-2" style="display:none;">
@@ -66,8 +66,8 @@
 
             <!-- Galeri Lama -->
             <div class="flex gap-4 flex-wrap">
-                @if($umkm->list_foto)
-                    @foreach($umkm->list_foto as $index => $foto)
+                @if($wisata->list_foto)
+                    @foreach($wisata->list_foto as $index => $foto)
                         <div class="relative">
                             <img src="{{ asset('storage/' . $foto) }}" class="w-24 h-24 object-cover border rounded">
                             <label class="absolute top-0 left-0">
