@@ -10,7 +10,7 @@
     <div class="card blue">
         <div class="head">
             <div class="kiri">
-                <h2>{{ $countUmkm }}</h2>
+                <h2>{{ $countUmkm + $countWisata }}</h2>
                 <p>Total</p>
             </div>
             <div class="kanan"><i class="fa fa-table"></i></div>
@@ -30,8 +30,7 @@
     <div class="card red">
         <div class="head">
             <div class="kiri">
-                {{-- <h2>{{ $countItemOut }}</h2> --}}
-                <h2>71</h2>
+                <h2>{{ $countWisata }}</h2>
                 <p>Wisata</p>
             </div>
             <div class="kanan"><i class="fa-solid fa-square-minus"></i></div>
