@@ -41,6 +41,22 @@
             <input type="text" name="alamat" class="w-full border rounded px-3 py-2" required>
         </div>
 
+        <!-- Nomor Telepon -->
+        <div class="mb-4">
+            <label class="block text-sm font-semibold mb-1">Nomor Telepon</label>
+            <input type="text" name="nomor_telepon" class="w-full border rounded px-3 py-2" placeholder="Contoh: 081234567890" >
+        </div>
+
+        <!-- Rentang Harga -->
+        <div class="mb-4">
+            <label class="block text-sm font-semibold mb-1">Rentang Harga (dalam Rupiah)</label>
+            <div class="flex gap-4">
+                <input type="number" name="harga_min" class="w-1/2 border rounded px-3 py-2" placeholder="Harga Minimum" min="0">
+                <input type="number" name="harga_max" class="w-1/2 border rounded px-3 py-2" placeholder="Harga Maksimum" min="0">
+            </div>
+            <p class="text-sm text-gray-500 mt-1">Contoh: 10000 - 50000</p>
+        </div>
+
         <!-- Link Map -->
         <div class="mb-4">
             <label class="block text-sm font-semibold mb-1">Link Google Maps</label>

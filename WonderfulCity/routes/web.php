@@ -13,7 +13,7 @@ use App\Http\Controllers\DashboardController;
 
 Route::get('/', [LandingController::class, 'index'])->name('landing.index');
 Route::get('/umkm', [UmkmController::class, 'index'])->name('umkm.index');
-Route::get('/search-umkm', [UmkmController::class, 'search'])->name('umkm.search');
+Route::get('/s  earch-umkm', [UmkmController::class, 'search'])->name('umkm.search');
 Route::get('/wisata', [WisataController::class, 'index'])->name('wisata.index');
 Route::get('/search-wisata', [WisataController::class, 'search'])->name('wisata.search');
 

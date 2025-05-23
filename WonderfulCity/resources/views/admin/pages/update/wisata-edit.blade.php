@@ -37,7 +37,29 @@
         <!-- Alamat -->
         <div class="mb-4">
             <label class="block text-sm font-semibold mb-1">Alamat</label>
-            <input type="text" name="alamat" class="w-full border rounded px-3 py-2" value="{{ old('alamat', $wisata->alamat) }}" required>
+            <input type="text" name="alamat" class="w-full border rounded px-3 py-2" value="{{ old('alamat', $wisata->alamat) }}" >
+        </div>
+
+        <!-- Rentang Harga -->
+        <div class="mb-4">
+            <label class="block text-sm font-semibold mb-1">Rentang Harga (Rp)</label>
+            <div class="flex gap-2">
+                <input type="number" name="harga_min" class="w-1/2 bg-gray-100 border rounded px-3 py-2"
+                    placeholder="Minimal" min="0"
+                    value="{{ old('harga_min', $wisata->rentang_harga[0] ?? '') }}">
+                <input type="number" name="harga_max" class="w-1/2 bg-gray-100 border rounded px-3 py-2"
+                    placeholder="Maksimal" min="0"
+                    value="{{ old('harga_max', $wisata->rentang_harga[1] ?? '') }}">
+            </div>
+            <p class="text-sm text-gray-500 mt-1">Masukkan harga dalam rupiah, contoh: 10000 - 50000.</p>
+        </div>
+
+        <!-- Nomor Telepon -->
+        <div class="mb-4">
+            <label class="block text-sm font-semibold mb-1">Nomor Telepon</label>
+            <input type="text" name="nomor_telepon" class="w-full bg-gray-100 border rounded px-3 py-2"
+                placeholder="Contoh: 081234567890"
+                value="{{ old('nomor_telepon', $wisata->nomor_telepon) }}">
         </div>
 
         <!-- Link Map -->
@@ -54,7 +76,7 @@
                 <p class="mb-2">Saat ini:</p>
                 <img src="{{ asset('storage/' . $wisata->foto_utama) }}" class="w-32 h-32 object-cover rounded border mb-2">
             @endif
-            <input type="file" name="foto_utama" accept="image/*" onchange="previewUtama(event)" required>
+            <input type="file" name="foto_utama" accept="image/*" onchange="previewUtama(event)">
             <img id="preview-foto-utama" class="w-32 h-32 object-cover rounded border mt-2" style="display:none;">
         </div>
 

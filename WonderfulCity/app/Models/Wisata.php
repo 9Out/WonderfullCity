@@ -16,10 +16,13 @@ class Wisata extends Model
         'list_foto',
         'alamat',
         'link_map',
+        'rentang_harga',
+        'nomor_telepon',
     ];
 
     protected $casts = [
         'list_foto' => 'array',
+        'rentang_harga' => 'array',
     ];
 
     public $timestamps = true;

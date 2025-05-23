@@ -41,6 +41,9 @@ class WisataController extends Controller
             'list_foto.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'alamat' => 'required|string|max:255',
             'link_map' => 'nullable|url',
+            'harga_min' => 'required|numeric|min:0',
+            'harga_max' => 'required|numeric|min:0|gte:harga_min',
+            'nomor_telepon' => 'nullable|string|max:20',
         ], [
             'nama_wisata.required'   => 'Nama Wisata wajib diisi.',
             'nama_wisata.string'     => 'Nama Wisata harus berupa teks.',
@@ -84,6 +87,8 @@ class WisataController extends Controller
             'list_foto' => $listFotoPaths,
             'alamat' => $request->alamat,
             'link_map' => $request->link_map,
+            'rentang_harga' => [$request->harga_min, $request->harga_max],
+            'nomor_telepon' => $request->nomor_telepon,
         ]);
 
         return redirect()->route('wisata.admin')->with('success', 'Wisata berhasil ditambahkan!');
@@ -118,6 +123,9 @@ class WisataController extends Controller
             'list_foto.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'alamat' => 'required|string|max:255',
             'link_map' => 'nullable|url',
+            'harga_min' => 'required|numeric|min:0',
+            'harga_max' => 'required|numeric|min:0|gte:harga_min',
+            'nomor_telepon' => 'nullable|string|max:20'
         ], [
             'nama_wisata.required'   => 'Nama Wisata wajib diisi.',
             'nama_wisata.string'     => 'Nama Wisata harus berupa teks.',
@@ -191,6 +199,8 @@ class WisataController extends Controller
             'list_foto' => array_values($list_foto),
             'alamat' => $request->alamat,
             'link_map' => $request->link_map,
+            'rentang_harga' => [$request->harga_min, $request->harga_max],
+            'nomor_telepon' => $request->nomor_telepon,
         ]);
 
         return redirect()->route('wisata.admin')->with('success', 'Wisata berhasil diperbarui!');
