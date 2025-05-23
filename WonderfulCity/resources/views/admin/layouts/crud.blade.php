@@ -10,19 +10,15 @@
 
     </title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Rubik:400,700'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    @yield('links')
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    @stack('links')
 
 </head>
 
 <body>
-    @include('components.header', ['main' => false])
+    @include('admin.components.header', ['main' => false])
 
     <main class="main-crud">
         <div class="content">
@@ -32,12 +28,28 @@
         </div>
     </main>
 
-    @include('components.footer')
+    @include('admin.components.footer')
 
 
-    @section('content-js')
-        <script src="{{ asset('js/crud.js') }}"></script>
-    @show
+    @stack('scripts')
+    <script>
+        // Reset form
+        const resetFormBtn = document.getElementById('resetFormBtn');
+        const inputForm = document.getElementById('inputForm');
+        resetFormBtn.addEventListener('click', () => {
+            inputForm.reset();
+            resetPreview();
+        });
+
+        // Reset before back
+        document.getElementById('backButton').addEventListener('click', function (event) {
+            event.preventDefault(); // Mencegah redirect langsung
+            const form = document.getElementById('inputForm');
+            form.reset(); // Reset isi form
+            resetPreview();
+            window.location.href = this.getAttribute('href'); // Arahkan ke halaman index
+        });
+    </script>
 </body>
 
 </html>

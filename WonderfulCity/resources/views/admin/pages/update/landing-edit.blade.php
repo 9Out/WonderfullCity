@@ -107,20 +107,12 @@
         <label>WhatsApp:</label>
         <input type="text" name="whatsapp" value="{{ old('whatsapp', $data->whatsapp ?? '') }}" required>
 
-        <label>Link Google Maps:</label>
+        <label>Link Embed Google Maps:</label>
+        <p style="margin-bottom: 4px;color: blue;"><small>Tipe url yang dipakai: https://www.google.com/maps/embed?...</small></p>
         <input type="url" name="map_link" value="{{ old('map_link', $data->map_link ?? '') }}" required>
 
-        <label>Carousel Gambar (minimal 3 - maksimal 6):</label>
-        <p><small>Jika tidak diunggah semua, gambar lama tetap dipakai.</small></p>
+        <label style="margin-bottom: 15px;">Carousel Gambar (minimal 3 - maksimal 6):</label>
 
-        <!-- Gambar lama -->
-        <!-- @if (!empty($data->carousel_images))
-            <div class="preview">
-                @foreach ($data->carousel_images as $img)
-                    <img src="{{ asset('storage/' . $img) }}" alt="Gambar lama">
-                @endforeach
-            </div>
-        @endif -->
 
         @if (!empty($data->carousel_images))
             <div class="preview">
@@ -149,15 +141,6 @@
             </div>
         @endif
 
-        <!-- Upload gambar baru -->
-        <!-- <div id="uploadFields">
-            @for ($i = 0; $i < 6; $i++)
-                <div>
-                    <input type="file" name="carousel[]" accept="image/*" class="image-input" data-index="{{ $i }}">
-                    <div id="preview-{{ $i }}" class="preview"></div>
-                </div>
-            @endfor
-        </div> -->
 
         <label>Gambar Visual UMKM:</label>
         @if (!empty($data->visual_umkm))

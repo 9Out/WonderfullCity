@@ -585,62 +585,6 @@ a:active {
 }
 
 
-/* === CONTENT CONTACT */
-section.contact {
-    display: flex;
-    width: 100%;
-    padding: 15px 0;
-    justify-content: center;
-    align-items: center;
-    background: #FFC720;
-}
-.contact .k-text {
-    color: #1E1E1E;
-    text-align: center;
-    padding: 0 10px;
-    border-right: 1px solid #717171;
-    font-weight: 600;
-}
-.contact .list-contact {
-    display: inline-flex;
-    gap: 10px;
-    color: #000;
-    text-align: center;
-    padding: 0 10px;
-    font-size: 1rem;
-}
-.k-item {
-    font-weight: 400;
-}
-.k-item a {
-    font-weight: 600;
-    color: #374786;
-}
-
-
-
-/* GO ON TOP */
-#myBtn {
-   display: none; /* Hidden by default */
-   position: fixed;
-   bottom: 5rem;
-   right: 3rem;
-   z-index: 2000;
-   border: none;
-   outline: none;
-   color: black;
-   background: none;
-   cursor: pointer;
-   font-size: 2rem;
-   font-family: Tahoma;
-   transition: all 0.1s ease;
-}
-
-#myBtn:hover {
-   color: #42EC97;
-}
-
-
 /* ===== Tablet & Mobile (≤ 1024px) ===== */
 @media (max-width: 1024px) {
     h1.heading {
@@ -674,11 +618,6 @@ section.contact {
     }
     .search {
         padding: 20px 15px;
-    }
-    .contact {
-        padding: 15px;
-        flex-direction: column;
-        gap: 5px;
     }
 
 
@@ -728,14 +667,6 @@ section.contact {
     /* == SECTION : About */
     .about .isi-about {
         padding: 0px 10%;
-    }
-
-    /* == SECTION : Contact == */
-    .contact .k-text {
-        border-right: 0;
-    }
-    .contact .list-contact {
-        font-size: 0.875rem;
     }
 }
 
@@ -888,11 +819,5 @@ section.contact {
     .pre-item .preview-2 {
         height: 60px;
         gap: 8px;
-    }
-
-    /* == SECTION : Contact == */
-    .contact .list-contact {
-        flex-direction: column;
-        gap: 0;
     }
 }

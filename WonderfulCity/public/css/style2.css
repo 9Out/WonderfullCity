@@ -5,6 +5,10 @@
     font-family: 'Tahoma', sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     min-height: 100vh;
     width: 100%;
@@ -238,12 +242,14 @@ a:active {
     gap: 10px;
 }
 
-.right-images .top-rigth,
-.right-images .bottom-rigth {
+.right-images .top-right,
+.right-images .bottom-right {
     flex: 1;
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
     overflow: hidden;
 }
 
@@ -370,12 +376,31 @@ a.caption:hover {
     gap: 60px 20px;
     padding: 30px 10% 60px;
     justify-items: center;
+    /* min-height: 1070px; */
+}
+
+.fixed-height-container {
+    min-height: calc(4 * 260px);
+}
+
+#umkm-list {
+    scroll-margin-top: 220px;
+}
+#wisata-list {
+    scroll-margin-top: 220px;
 }
 
 .card {
     position: relative;
     width: 100%;
     max-width: 350px;
+}
+
+.dummy-card {
+    background: none;
+    box-shadow: none;
+    border: none;
+    height: 260px;
 }
 
 .card-image {
@@ -406,7 +431,8 @@ a.caption:hover {
 
 .card-caption {
     position: absolute;
-    top: 100%;
+    /* top: 100%; */
+    top: unset;
     left: 50%;
     transform: translate(-50%, -65%);
     background-color: #374786;
@@ -462,59 +488,56 @@ a.detail-button {
 }
 
 
-/* === CONTENT CONTACT */
-section.contact {
+/* === PAGINATION === */
+.pagination-wrapper {
     display: flex;
-    width: 100%;
-    padding: 15px 0;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+.pagination {
+    display: flex;
     justify-content: center;
     align-items: center;
-    background: #FFC720;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    flex-wrap: wrap;
 }
-.contact .k-text {
-    color: #1E1E1E;
-    text-align: center;
-    padding: 0 10px;
-    border-right: 1px solid #717171;
-    font-weight: 600;
+
+.pagination li {
+    display: inline-block;
 }
-.contact .list-contact {
-    display: inline-flex;
-    gap: 10px;
-    color: #000;
-    text-align: center;
-    padding: 0 10px;
-    font-size: 1rem;
+
+.pagination a,
+.pagination .active,
+.pagination .disabled {
+    padding: 8px 14px;
+    border-radius: 8px;
+    background-color: #374786;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.2s ease-in-out;
 }
-.k-item {
-    font-weight: 400;
+
+.pagination a:hover {
+    background-color: #2f3c6b;
 }
-.k-item a {
-    font-weight: 600;
+
+.pagination .active {
+    background-color: #ffcc00;
     color: #374786;
+    cursor: default;
+}
+
+.pagination .disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
 }
 
 
-/* GO ON TOP */
-#myBtn {
-   display: none; /* Hidden by default */
-   position: fixed;
-   bottom: 5rem;
-   right: 3rem;
-   z-index: 2000;
-   border: none;
-   outline: none;
-   color: black;
-   background: none;
-   cursor: pointer;
-   font-size: 2rem;
-   font-family: Tahoma;
-   transition: all 0.1s ease;
-}
-
-#myBtn:hover {
-   color: #42EC97;
-}
 
 
 
@@ -570,11 +593,6 @@ section.contact {
         padding: 6px 15px;
         margin-bottom: 0;
     }
-    .contact {
-        padding: 15px;
-        flex-direction: column;
-        gap: 5px;
-    }
 
 
     /* == SECTION: Headlight == */
@@ -601,14 +619,6 @@ section.contact {
         padding: 20px 15px 50px;
         margin-bottom: 0;
         gap: 50px 15px;
-    }
-
-    /* == SECTION : Contact == */
-    .contact .k-text {
-        border-right: 0;
-    }
-    .contact .list-contact {
-        font-size: 0.875rem;
     }
 }
 
@@ -716,11 +726,5 @@ section.contact {
         width: 35px;
         height: 35px;
         padding: 6px 6px 9px;
-    }
-
-    /* == SECTION : Contact == */
-    .contact .list-contact {
-        flex-direction: column;
-        gap: 0;
     }
 }

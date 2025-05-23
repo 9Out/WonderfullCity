@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Umkm;
+use App\Models\Wisata;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -11,7 +13,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.dashboard');
+        $countUmkm = Umkm::count();
+        $countWisata = Wisata::count();
+        return view('admin.pages.dashboard', compact(['countUmkm', 'countWisata']));
     }
 
     /**

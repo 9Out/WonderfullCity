@@ -65,30 +65,14 @@
                 <div class="list-preview">
                     <span class="left-line"></span>
                     <div class="pre-item">
-                        <div class="preview-2">
-                            <div class="pre-image">
-                                <img src="https://picsum.photos/200/300" alt="">
+                        @foreach ($umkm as $item)    
+                            <div class="preview-2">
+                                <div class="pre-image">
+                                    <img src="{{ asset('storage/' . $item->foto_utama) }}" alt="{{ $item->nama_umkm }}">
+                                </div>
+                                <a href="{{ route('umkm.show', $item->slug) }}" class="pre-title">{{ $item->nama_umkm }}</a>
                             </div>
-                            <a href="" class="pre-title">Nasi Liwet Bu Sadinem</a>
-                        </div>
-                        <div class="preview-2">
-                            <div class="pre-image">
-                                <img src="https://picsum.photos/200/300" alt="">
-                            </div>
-                            <a href="" class="pre-title">Serabi Mungil Ibu Tipuk</a>
-                        </div>
-                        <div class="preview-2">
-                            <div class="pre-image">
-                                <img src="https://picsum.photos/200/300" alt="">
-                            </div>
-                            <a href="" class="pre-title">Selat Solo Masbos Joko</a>
-                        </div>
-                        <div class="preview-2">
-                            <div class="pre-image">
-                                <img src="https://picsum.photos/200/300" alt="">
-                            </div>
-                            <a href="" class="pre-title">Timlo Solo Sastro</a>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -110,30 +94,14 @@
                 <div class="list-preview">
                     <span class="left-line"></span>
                     <div class="pre-item">
-                        <div class="preview-2">
-                            <div class="pre-image">
-                                <img src="https://picsum.photos/200/300" alt="">
+                        @foreach ($wisata as $item)    
+                            <div class="preview-2">
+                                <div class="pre-image">
+                                    <img src="{{ asset('storage/' . $item->foto_utama) }}" alt="{{ $item->nama_wisata }}">
+                                </div>
+                                <a href="{{ route('wisata.show', $item->slug) }}" class="pre-title">{{ $item->nama_wisata }}</a>
                             </div>
-                            <a href="" class="pre-title">Keraton Surakarta Hadiningrat</a>
-                        </div>
-                        <div class="preview-2">
-                            <div class="pre-image">
-                                <img src="https://picsum.photos/200/300" alt="">
-                            </div>
-                            <a href="" class="pre-title">Pura Mangkunegaran</a>
-                        </div>
-                        <div class="preview-2">
-                            <div class="pre-image">
-                                <img src="https://picsum.photos/200/300" alt="">
-                            </div>
-                            <a href="" class="pre-title">Museum Batik Danar Hadi</a>
-                        </div>
-                        <div class="preview-2">
-                            <div class="pre-image">
-                                <img src="https://picsum.photos/200/300" alt="">
-                            </div>
-                            <a href="" class="pre-title">Kampung Batik Kauman & Laweyan</a>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -148,7 +116,7 @@
             <h2 class="heading title-search">Cari UMKM & Wisata Favoritmu</h2>
             <p class="subtitle subtitle-preview">Gunakan fitur pencarian untuk menemukan data UMKM dan destinasi wisata yang kamu butuhkan dengan mudah.</p>
         </div>
-        <form id="search-section" class="input-container w-75" action="#" method="GET">
+        <form id="search-form" class="input-container w-75" method="GET">
             <select name="kategori" id="kategori">
                 <option value="umkm">UMKM</option>
                 <option value="wisata">Wisata</option>
@@ -185,4 +153,31 @@
         window.storageBase = '{{ asset('storage') }}';
     </script>
     <script src="{{ asset('js/home.js') }}"></script>
+    <script>
+    document.getElementById('search-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const kategori = document.getElementById('kategori').value;
+        const search = document.getElementById('search').value.trim();
+
+        if (!search) {
+            alert('Silakan isi kata kunci pencarian.');
+            return;
+        }
+
+        // Tentukan URL berdasarkan kategori
+        let baseUrl = '';
+        let anchor = '';
+        if (kategori === 'umkm') {
+            baseUrl = '{{ route('umkm.search') }}';
+            anchor = '#umkm-list';
+        } else if (kategori === 'wisata') {
+            baseUrl = '{{ route('wisata.search') }}';
+            anchor = '#wisata-list';
+        }
+
+        // Redirect ke URL dengan query string
+        window.location.href = baseUrl + '?search=' + encodeURIComponent(search) + anchor;
+    });
+</script>
 @endpush

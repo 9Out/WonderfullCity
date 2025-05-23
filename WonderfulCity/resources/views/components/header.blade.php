@@ -55,10 +55,10 @@
         // ------------- //
         function scrollToCenter() {
             event.preventDefault();
-            const element = document.getElementById("search-section");
+            const element = document.getElementById("search-form");
 
             if (!element) {
-                console.warn('Elemen #search-section tidak ditemukan!');
+                console.warn('Elemen #search-form tidak ditemukan!');
                 return;
             }
 

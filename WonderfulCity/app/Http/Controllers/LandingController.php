@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\LandingPage;
+use App\Models\Umkm;
+use App\Models\Wisata;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,7 +16,9 @@ class LandingController extends Controller
     public function index()
     {
         $data = LandingPage::first();
-        return view('pages.home', compact('data'));
+        $umkm = Umkm::orderBy('created_at', 'desc')->take(4)->get();
+        $wisata = Wisata::orderBy('created_at', 'desc')->take(4)->get();
+        return view('pages.home', compact(['data', 'umkm', 'wisata']));
     }
 
     /**
@@ -60,10 +64,32 @@ class LandingController extends Controller
             'website_detail' => 'required',
             'email' => 'required|email',
             'whatsapp' => 'required',
-            'map_link' => 'required|url',
+            'map_link' => 'required|regex:/^https:\/\/www\.google\.com\/maps\/embed\?/i',
             'carousel.*' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'visual_umkm' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'visual_wisata' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ], [
+            'website_detail.required' => 'Deskripsi website wajib diisi.',
+
+            'email.required' => 'Email wajib diisi.',
+            'email.email'    => 'Format email tidak valid.',
+
+            'whatsapp.required' => 'Nomor WhatsApp wajib diisi.',
+
+            'map_link.required' => 'Link peta wajib diisi.',
+            'map_link.regex'    => 'Link peta harus diawali dengan "https://www.google.com/maps/embed?".',
+
+            'carousel.*.image' => 'Setiap gambar carousel harus berupa file gambar.',
+            'carousel.*.mimes' => 'Format gambar carousel harus jpg, jpeg, atau png.',
+            'carousel.*.max'   => 'Ukuran setiap gambar carousel maksimal 2MB.',
+
+            'visual_umkm.image' => 'Visual UMKM harus berupa gambar.',
+            'visual_umkm.mimes' => 'Format gambar visual UMKM harus jpg, jpeg, atau png.',
+            'visual_umkm.max'   => 'Ukuran gambar visual UMKM maksimal 2MB.',
+
+            'visual_wisata.image' => 'Visual wisata harus berupa gambar.',
+            'visual_wisata.mimes' => 'Format gambar visual wisata harus jpg, jpeg, atau png.',
+            'visual_wisata.max'   => 'Ukuran gambar visual wisata maksimal 2MB.',
         ]);
 
         $landing = LandingPage::first();

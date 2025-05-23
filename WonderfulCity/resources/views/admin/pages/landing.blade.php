@@ -55,8 +55,9 @@
         </div>
 
         <div class="info">
-            <p class="label">Google Maps:</p>
-            <a href="{{ $data->map_link }}" target="_blank">Lihat Lokasi</a>
+            <p class="label">Embed Google Maps:</p>
+            <p style="margin-bottom: 4px;color: blue;"><small>Tipe url yang dipakai: https://www.google.com/maps/embed?...</small></p>
+            <p>{{ $data->map_link }}</p>
         </div>
 
         <div class="info">

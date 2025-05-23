@@ -29,7 +29,7 @@
             <!-- DATA DARI AppServiceProvider -->
             {{-- {{ $footerContact['map_link'] }} --}}
             <iframe 
-                src="https://www.google.com/maps/embed?pb=!4v1746623088265!6m8!1m7!1sEMnwbMTeFGkcxFes8-B2Uw!2m2!1d-7.569603056266332!2d110.8302433182977!3f277.39953434280926!4f-0.9386477447675929!5f1.238731008146421"
+                src="{{ $footerContact['map_link'] ?? '' }}"
                 allowfullscreen="" 
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade">
