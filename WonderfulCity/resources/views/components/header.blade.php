@@ -2,7 +2,9 @@
         <div class="container" id="header-container">
         <!-- Logo -->
         <div class="logo">
-            <div class="logo-circle">SOC</div>
+            <a href="{{ route('landing.index') }}">
+                <span class="explore">Explore</span><span class="solo">Solo</span>
+            </a>
         </div>
 
         <!-- Navigation -->

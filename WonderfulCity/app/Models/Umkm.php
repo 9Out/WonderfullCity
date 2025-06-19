@@ -18,6 +18,7 @@ class Umkm extends Model
         'link_map',
         'rentang_harga',
         'nomor_telepon',
+        'user_id',
     ];
 
     protected $casts = [
@@ -26,5 +27,10 @@ class Umkm extends Model
     ];
 
     public $timestamps = true;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
 

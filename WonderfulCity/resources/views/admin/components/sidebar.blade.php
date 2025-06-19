@@ -15,9 +15,9 @@
                 <span class="side-icon"><i class="fa fa-file-lines"></i>Wisata</span>
             </a>
         </li>
-        <li class="side-item" title="Informasi Landing">
+        <li class="side-item" title="Informasi Web">
             <a href="{{ route('landing.show') }}">
-                <span class="side-icon"><i class="fa fa-gear"></i>Landing Page</span>
+                <span class="side-icon"><i class="fa fa-gear"></i>Informasi Web</span>
             </a>
         </li>
         <li class="side-item" title="Logout">

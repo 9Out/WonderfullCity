@@ -1,6 +1,6 @@
 @extends('admin.layouts.adminlayout')
 
-@section('title', 'Landing Page')
+@section('title', 'Informasi Web')
 
 @push('links')
     <!-- Link Head -->
@@ -34,11 +34,18 @@
 @section('content')
     <!-- Content HTML -->
 <div class="container">
-    <h1>Informasi Landing Page</h1>
+    <h1>Informasi Web</h1>
 
     @include('admin.components.success')
 
     @if ($data)
+        <div class="aksi">
+            <a class="button button-amber" href="{{ route('landing.edit') }}">
+                <i class="fa fa-pen-to-square"></i>
+                Edit Informasi Web
+            </a>
+        </div>
+
         <div class="info">
             <p class="label">Detail Website:</p>
             <p>{{ $data->website_detail }}</p>
@@ -85,15 +92,11 @@
             </div>
         </div>
 
-        <br>
-        <a href="{{ route('landing.edit') }}">
-            <button class="button button-amber">Edit Landing Page</button>
-        </a>
     @else
-        <p class="no-data labl red">Belum ada data landing page.</p>
         <a href="{{ route('landing.edit') }}">
             <button class="button button-blue">Buat Sekarang</button>
         </a>
+        <p class="no-data labl red">Belum ada data landing page.</p>
     @endif
 </div>
 @endsection

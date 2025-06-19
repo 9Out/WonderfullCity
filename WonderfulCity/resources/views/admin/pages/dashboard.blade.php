@@ -11,7 +11,7 @@
         <div class="head">
             <div class="kiri">
                 <h2>{{ $countUmkm + $countWisata }}</h2>
-                <p>Total</p>
+                <p>Total Data</p>
             </div>
             <div class="kanan"><i class="fa fa-table"></i></div>
         </div>
@@ -21,21 +21,21 @@
         <div class="head">
             <div class="kiri">
                 <h2>{{ $countUmkm }}</h2>
-                <p>UMKM</p>
+                <p>Data UMKM</p>
             </div>
             <div class="kanan"><i class="fa-solid fa-square-plus"></i></div>
         </div>
-        <a href="" class="foot">More Info <i class="fa-regular fa-circle-right"></i></a>
+        <a href="{{ route('umkm.admin') }}" class="foot">More Info <i class="fa-regular fa-circle-right"></i></a>
     </div>
     <div class="card red">
         <div class="head">
             <div class="kiri">
                 <h2>{{ $countWisata }}</h2>
-                <p>Wisata</p>
+                <p>Data Wisata</p>
             </div>
             <div class="kanan"><i class="fa-solid fa-square-minus"></i></div>
         </div>
-        <a href="" class="foot">More Info <i class="fa-regular fa-circle-right"></i></a>
+        <a href="{{ route('wisata.admin') }}" class="foot">More Info <i class="fa-regular fa-circle-right"></i></a>
     </div>
 </div>
 

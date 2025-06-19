@@ -23,7 +23,7 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0;
 }
 h1.heading {
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: 900;
     line-height: normal;
     letter-spacing: 2.4px;
@@ -588,7 +588,7 @@ a:active {
 /* ===== Tablet & Mobile (≤ 1024px) ===== */
 @media (max-width: 1024px) {
     h1.heading {
-        font-size: 2.25rem;
+        font-size: 1.95rem;
         letter-spacing: 1.5px;
     }
     h2.heading {
@@ -673,7 +673,7 @@ a:active {
 /* ===== Medium Mobile (≤ 768px) ===== */
 @media (max-width: 768px) {
     h1.heading {
-        font-size: 1.75rem;
+        font-size: 1.5rem;
         letter-spacing: 1px;
     }
     h2.heading {

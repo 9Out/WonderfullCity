@@ -42,8 +42,8 @@ class UmkmController extends Controller
             'list_foto.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'alamat' => 'required|string|max:255',
             'link_map' => 'nullable|url',
-            'harga_min' => 'required|numeric|min:0',
-            'harga_max' => 'required|numeric|min:0|gte:harga_min',
+            'harga_min' => 'nullable|numeric|min:0',
+            'harga_max' => 'nullable|numeric|min:0|gte:harga_min',
             'nomor_telepon' => 'nullable|string|max:20',
         ], [
             'nama_umkm.required'   => 'Nama UMKM wajib diisi.',
@@ -88,8 +88,11 @@ class UmkmController extends Controller
             'list_foto' => $listFotoPaths,
             'alamat' => $request->alamat,
             'link_map' => $request->link_map,
-            'rentang_harga' => [$request->harga_min, $request->harga_max],
-            'nomor_telepon' => $request->nomor_telepon, 
+            'rentang_harga' => ($request->harga_min && $request->harga_max)
+                                ? [$request->harga_min, $request->harga_max]
+                                : null,
+            'nomor_telepon' => $request->nomor_telepon,
+            'user_id' => auth()->id(),
         ]);
 
         return redirect()->route('umkm.admin')->with('success', 'UMKM berhasil ditambahkan!');
@@ -124,8 +127,8 @@ class UmkmController extends Controller
             'list_foto.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'alamat' => 'required|string|max:255',
             'link_map' => 'nullable|url',
-            'harga_min' => 'required|numeric|min:0',
-            'harga_max' => 'required|numeric|min:0|gte:harga_min',
+            'harga_min' => 'nullable|numeric|min:0',
+            'harga_max' => 'nullable|numeric|min:0|gte:harga_min',
             'nomor_telepon' => 'nullable|string|max:20',
         ], [
             'nama_umkm.required'   => 'Nama UMKM wajib diisi.',
@@ -200,7 +203,9 @@ class UmkmController extends Controller
             'list_foto' => array_values($list_foto),
             'alamat' => $request->alamat,
             'link_map' => $request->link_map,
-            'rentang_harga' => [$request->harga_min, $request->harga_max],
+            'rentang_harga' => ($request->harga_min && $request->harga_max)
+                                ? [$request->harga_min, $request->harga_max]
+                                : null,
             'nomor_telepon' => $request->nomor_telepon,
         ]);
 

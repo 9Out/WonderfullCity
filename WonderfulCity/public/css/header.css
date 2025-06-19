@@ -24,18 +24,36 @@
         max-width: 95%;
     }
     
-    /* Logo circle */
+    /* Header Logo */
     .header .logo {
-        width: 70px;
-        height: 70px;
-        background-color: #4ade80; /* green-400 */
-        border-radius: 50%;
         display: flex;
         align-items: center;
-        justify-content: center;
+        height: 70px;
         font-weight: bold;
-        color: black;
-        font-size: 1rem;
+        font-size: 2.5rem;
+        width: fit-content;
+        position: relative;
+    }
+
+    .logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    }
+
+    .header .logo .explore {
+        color: #4ade80; /* Hijau cerah */
+    }
+
+    .header .logo .solo {
+        color:  #e2e8f0; /* Putih */
+    }
+
+    /* Tambahan efek opsional */
+    .header .logo a:hover .explore,
+    .header .logo a:hover .solo {
+        filter: brightness(1.2);
+        transition: 0.3s;
     }
     
     /* Navigation styling */
@@ -43,7 +61,7 @@
         display: flex;
         gap: 24px;
         font-size: 1.25rem;
-        font-weight: 600;
+        font-weight: bold;
         align-items: center;
     }
     
