@@ -24,8 +24,8 @@
 @section('content')
     <!-- Content HTML -->
     <section class="headlight">
-        <h1 class="heading title-headlight">Surakarta</h1>
-        <span class="divider"></span>
+        <!-- <h1 class="heading title-headlight">Surakarta</h1> -->
+        <!-- <span class="divider"></span> -->
         <div class="carousel">
             <div class="image">
                 <button class="nav left" onclick="prevImage()"><i class="fa-solid fa-angle-left"></i></button>

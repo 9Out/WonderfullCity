@@ -34,23 +34,36 @@
             <div>
                 <h1 class="text-4xl font-bold text-gray-800 mb-2">{{ $umkm->nama_umkm ?? $wisata->nama_wisata }}</h1>
                 <div class="h-2 w-full bg-orange-500 mb-3"></div>
+                <p class="text-sm text-gray-500 mb-1">
+                    Oleh: {{ $data->user->name ?? '-' }}
+                </p>
                 <p class="text-gray-700 mb-4 text-lg">{{ $data->deskripsi}}</p>
                 <div class="space-y-2 text-gray-700 ">
                 <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-phone text-orange-500 w-5"></i>
+                    <i class="fa-solid fa-phone text-orange-500 w-6 text-center shrink-0"></i>
                     <span><strong>Telepon:</strong> {{ $data->nomor_telepon}}</span>
                 </div>
 
                 <div class="flex items-center gap-2 ">
-                    <i class="fa-solid fa-money-bill-wave text-green-500 w-5 text-center"></i>
+                    <i class="fa-solid fa-money-bill-wave text-green-500 w-6 text-center shrink-0"></i>
                     @php
-                        $min = number_format($data->rentang_harga[0], 0, ',', '.');
-                        $max = number_format($data->rentang_harga[1], 0, ',', '.');
+                    $hargaTersedia = !empty($data->rentang_harga) && is_array($data->rentang_harga) && count($data->rentang_harga) >= 2;
+                    if ($hargaTersedia) {
+                            $min = number_format($data->rentang_harga[0], 0, ',', '.');
+                            $max = number_format($data->rentang_harga[1], 0, ',', '.');
+                        }
                     @endphp
-                    <span><strong>Harga:</strong> Rp{{ $min }} - Rp{{ $max }}</span>
+                    <span>
+                        <strong>Harga:</strong>
+                        @if ($hargaTersedia)
+                            Rp{{ $min }} - Rp{{ $max }}
+                        @else
+                            -
+                        @endif
+                    </span>
                 </div>
                     <div class="flex items-center gap-2">
-                        <i class="fa-solid fa-location-dot text-orange-500 w-5 text-center"></i>
+                        <i class="fa-solid fa-location-dot text-orange-500 w-6 text-center shrink-0"></i>
                         <span><strong>Alamat:</strong> {{ $data->alamat }}</span>
                     </div>
                     @if($data->link_map)
@@ -66,7 +79,7 @@
 
     <!-- Documentation -->
     <div class="mt-12">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Dokumentasi Event</h2>
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Koleksi Foto</h2>
         <hr class="mb-6">
 
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">

@@ -1,7 +1,11 @@
     <header class="header">
         <div class="box1">
             <div class="menu-toggle" onclick="toggleSidebar()"><i id="menu-toggle" class="fa-solid fa-bars"></i></div>
-            <div class="logo"><a href="{{ route('dashboard.index') }}">{{ config('app.name') }}</a></div>
+            <div class="logo">
+                <a href="{{ route('dashboard.index') }}">
+                    {{ config('app.name') }}
+                </a>
+            </div>
         </div>
         @if (Auth::check())
         <div class="user">

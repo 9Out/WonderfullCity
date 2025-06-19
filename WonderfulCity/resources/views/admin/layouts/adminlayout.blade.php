@@ -7,7 +7,7 @@
     @hasSection('title')
         <title>
             @if (trim($__env->yieldContent('title')) !== 'Dashboard') 
-            Surakarta |
+            {{ config('app.name') }} |
             @endif
 
             @yield('title') 

@@ -45,4 +45,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function wisatas()
+    {
+        return $this->hasMany(Wisata::class);
+    }
+
+    public function umkms()
+    {
+        return $this->hasMany(Umkm::class);
+    }
 }
